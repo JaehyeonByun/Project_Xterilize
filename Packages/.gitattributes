@@ -1,2 +1,0 @@
-manifest.json filter=lfs diff=lfs merge=lfs -text
-packages-lock.json filter=lfs diff=lfs merge=lfs -text
