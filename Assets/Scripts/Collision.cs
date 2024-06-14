@@ -16,7 +16,7 @@ public class Collision : MonoBehaviour
         if (collision.gameObject.GetComponent<Collider>().gameObject.CompareTag("player"))
         {
             Debug.Log("Player Contaminated!");
-            string currentTime = System.DateTime.Now.ToString("HH��mm��ss��");
+            string currentTime = System.DateTime.Now.ToString("HH??mm??ss??");
             timeLog.Add(currentTime);
         }
     }
@@ -24,7 +24,7 @@ public class Collision : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            MakeCsv(); // CSV ���Ϸ� �����ϴ� �Լ� ȣ��
+            MakeCsv(); // CSV ????? ??????? ??? ???
         }
     }
     void MakeCsv()
