@@ -14,7 +14,7 @@ public class HandPositionObserver : MonoBehaviour
     {
         if (collider.tag == "PlayerContaminationArea")
         {
-            Debug.Log("Contamination Pose!");
+            Debug.Log("Contamination Pose! " + collider.gameObject.name);
         }
     }
     

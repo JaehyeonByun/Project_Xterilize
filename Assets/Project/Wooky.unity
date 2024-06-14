@@ -948,6 +948,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 65659749}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &82610692 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5465940246521907071, guid: 252b11164fa20f645bf82c41e879bcd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 219090324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &100842565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1299,13 +1305,13 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 623650051}
-    - targetCorrespondingSourceObject: {fileID: 7260032303327764098, guid: 252b11164fa20f645bf82c41e879bcd3,
+    - targetCorrespondingSourceObject: {fileID: 5465940246521907071, guid: 252b11164fa20f645bf82c41e879bcd3,
         type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 1357407737}
-    - targetCorrespondingSourceObject: {fileID: -2853237004070232224, guid: 252b11164fa20f645bf82c41e879bcd3,
+    - targetCorrespondingSourceObject: {fileID: -3480699329000672020, guid: 252b11164fa20f645bf82c41e879bcd3,
         type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 1750510966}
     - targetCorrespondingSourceObject: {fileID: 6502182839619065283, guid: 252b11164fa20f645bf82c41e879bcd3,
         type: 3}
@@ -2868,6 +2874,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4669470025699016, guid: 6e5218de2470d8d4098d8975a543e2f4,
     type: 3}
   m_PrefabInstance: {fileID: 705048968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &711600633 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3480699329000672020, guid: 252b11164fa20f645bf82c41e879bcd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 219090324}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &716375663
 PrefabInstance:
@@ -5159,12 +5171,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357407736}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0002712016, y: -0.95011574, z: -0.0026375367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1412152493}
+  m_Father: {fileID: 82610692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1357407738
 BoxCollider:
@@ -5186,7 +5198,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0, y: 0.48, z: 0}
+  m_Center: {x: 0, y: 0.54, z: 0}
 --- !u!1 &1383217978
 GameObject:
   m_ObjectHideFlags: 0
@@ -5406,12 +5418,6 @@ MonoBehaviour:
   _pointerPoseRoot: {fileID: 0}
   m_showState: 0
   RayHelper: {fileID: 0}
---- !u!4 &1412152493 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7260032303327764098, guid: 252b11164fa20f645bf82c41e879bcd3,
-    type: 3}
-  m_PrefabInstance: {fileID: 219090324}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1413193981
 GameObject:
   m_ObjectHideFlags: 0
@@ -7228,12 +7234,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750510965}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.04050356, y: -9.458745e-11, z: -2.3163693e-11, w: 0.9991794}
+  m_LocalPosition: {x: -0.000051334733, y: -1.0539589, z: -0.07952941}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1834492223}
+  m_Father: {fileID: 711600633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1750510967
 BoxCollider:
@@ -7503,12 +7509,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4041404538127150, guid: 403019513c54a79468a87e1f6bddea16,
     type: 3}
   m_PrefabInstance: {fileID: 1773615568}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1834492223 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -2853237004070232224, guid: 252b11164fa20f645bf82c41e879bcd3,
-    type: 3}
-  m_PrefabInstance: {fileID: 219090324}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1844377088
 PrefabInstance:
