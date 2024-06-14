@@ -11,12 +11,12 @@ public class Collision : MonoBehaviour
 {
     private List<string> timeLog = new List<string>();
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        if (collision.GetComponent<Collider>().gameObject.CompareTag("player"))
+        if (collision.gameObject.GetComponent<Collider>().gameObject.CompareTag("player"))
         {
             Debug.Log("Player Contaminated!");
-            string currentTime = System.DateTime.Now.ToString("HH½ÃmmºÐssÃÊ");
+            string currentTime = System.DateTime.Now.ToString("HHï¿½ï¿½mmï¿½ï¿½ssï¿½ï¿½");
             timeLog.Add(currentTime);
         }
     }
@@ -24,7 +24,7 @@ public class Collision : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            MakeCsv(); // CSV ÆÄÀÏ·Î ÀúÀåÇÏ´Â ÇÔ¼ö È£Ãâ
+            MakeCsv(); // CSV ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
         }
     }
     void MakeCsv()
