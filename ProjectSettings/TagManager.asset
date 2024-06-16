@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SamplesInfoPanel
   - PlayerContaminationArea
+  - Aseptic
+  - Conta
   layers:
   - Default
   - TransparentFX
