@@ -8,6 +8,8 @@ TagManager:
   - PlayerContaminationArea
   - Aseptic
   - Conta
+  - LeftHand
+  - RightHand
   layers:
   - Default
   - TransparentFX
