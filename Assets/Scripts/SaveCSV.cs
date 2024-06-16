@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class SaveCSV : MonoBehaviour
@@ -38,7 +39,7 @@ public class SaveCSV : MonoBehaviour
     }
     void MakeCsv()
     {
-        if (timeLog == null || timeLog.Count == 0)
+        /*if (timeLog == null || timeLog.Count == 0)
         {
             Debug.Log("No Contamination");
             using (FileStream fs = new FileStream("Assets/ContaminationTime.csv", FileMode.Append, FileAccess.Write))
@@ -48,12 +49,11 @@ public class SaveCSV : MonoBehaviour
                 sw.WriteLine(string.Format("No time, "));
             }
             return;
-        }
+        }*/
 
         try
         {
-            using (FileStream fs = new FileStream("Assets/ContaminationTime.csv", FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Unicode))
+            using (StreamWriter sw = new StreamWriter("Assets/ContaminationTime.csv", false, Encoding.UTF8))
             {
                 sw.WriteLine("TimeStamp,Contamination");
                 var list = timeLog;
@@ -63,7 +63,7 @@ public class SaveCSV : MonoBehaviour
                     sw.WriteLine(string.Format("{0}", tmp));
                 }
             }
-            Debug.Log("CSV file saved successfully.");
+            Debug.Log("CSV file saved");
         }
         catch (Exception ex)
         {
