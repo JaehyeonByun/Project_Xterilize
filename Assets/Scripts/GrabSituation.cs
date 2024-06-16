@@ -106,4 +106,45 @@ public class GrabSituation : MonoBehaviour
         leftHandTransform.position = leftHandPreviousPosition;
         rightHandTransform.position = rightHandPreviousPosition;
     }
+
+
+    // 손 위치 피드백 기능 테스트 중
+    //[SerializeField] float sensitivity = 0.1f;
+    //[SerializeField] Vector3 leftHandPreviousPosition;
+    //[SerializeField] Vector3 rightHandPreviousPosition;
+    //[SerializeField] bool isMoving;
+
+    //void DetectMovement()
+    //{
+    //    if (isStartSimulation)
+    //    {
+    //        Vector3 leftHandCurrentPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
+    //        Vector3 rightHandCurrentPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+
+    //        float[] distances =
+    //        {
+    //            Vector3.Distance(leftHandCurrentPosition, leftHandPreviousPosition),
+    //            Vector3.Distance(rightHandCurrentPosition, rightHandPreviousPosition)
+    //        };
+
+    //        isMoving = false;
+
+    //        foreach (float distance in distances)
+    //        {
+    //            if (distance > sensitivity)
+    //            {
+    //                isMoving = true;
+    //                break;
+    //            }
+    //        }
+
+    //        if (isMoving)
+    //        {
+    //            Debug.Log("Object is moving");
+    //        }
+
+    //        leftHandPreviousPosition = leftHandCurrentPosition;
+    //        rightHandPreviousPosition = rightHandCurrentPosition;
+    //    }
+    //}
 }
