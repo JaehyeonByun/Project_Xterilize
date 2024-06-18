@@ -9,28 +9,35 @@ using System.Text;
 
 public class Collision : MonoBehaviour
 {
-    private List<string> timeLog = new List<string>();
+    
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(UnityEngine.Collision collision)
     {
-        if (collision.GetComponent<Collider>().gameObject.CompareTag("player"))
+        if (collision.gameObject.GetComponent<Collider>().gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Contaminated!");
+            //Debug.Log("Player Contaminated!");
+            
             string currentTime = System.DateTime.Now.ToString("HH시mm분ss초");
-            timeLog.Add(currentTime);
+            Debug.Log("Current Time: " + currentTime);
+            GameManager.timeLog.Add(currentTime);
+            GameManager.ContaminationLog.Add("오염된 물체 접촉");
+            GameManager.WhyLog.Add(this.gameObject.name);
+
+
         }
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            MakeCsv(); // CSV 파일로 저장하는 함수 호출
-        }
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    MakeCsv(); 
+        //}
     }
     void MakeCsv()
     {
+
         string csvFilePath = "Assets/CsvData/ContaminationTime.csv";
-        if (timeLog == null || timeLog.Count == 0)
+        /*if (timeLog == null || timeLog.Count == 0)
         {
             Debug.Log("No Contamination");
             using (StreamWriter sw = new StreamWriter(csvFilePath, false, Encoding.UTF8))
@@ -39,27 +46,26 @@ public class Collision : MonoBehaviour
                 sw.WriteLine(string.Format("No time"));
             }
             return;
-        }
-
+        }*/
         try
         {
-            
             using (StreamWriter sw = new StreamWriter(csvFilePath, false, Encoding.UTF8))
             {
                 sw.WriteLine("TimeStamp,Contamination");
-                var list = timeLog;
+                var list = GameManager.timeLog;
                 for (int i = 0; i < list.Count; i++)
                 {
                     var tmp = list[i];
                     sw.WriteLine(string.Format("{0}", tmp));
                 }
             }
-            Debug.Log("CSV file saved successfully.");
+            Debug.Log("CSV file saved");
         }
         catch (Exception ex)
         {
             Debug.Log("An error occurred while writing to the CSV file: " + ex.Message);
         }
+
 
     }
 }
