@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 198536267}
   - component: {fileID: 198536269}
   - component: {fileID: 198536268}
+  m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
