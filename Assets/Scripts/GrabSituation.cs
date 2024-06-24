@@ -7,51 +7,74 @@ public class GrabSituation : MonoBehaviour
     [SerializeField] bool isLeftDetected;
     [SerializeField] bool isRightDetected;
 
-    [SerializeField] bool isLeftGripPressed;
-    [SerializeField] bool isRightGripPressed;
+    [SerializeField] bool leftHandGrabbing;
+    [SerializeField] bool rightHandGrabbing;
 
-    [SerializeField] bool isStartSimulation;
 
-    [SerializeField] Transform leftHandTransform;
-    [SerializeField] Transform rightHandTransform;
 
-    private Vector3 leftHandPreviousPosition;
-    private Vector3 rightHandPreviousPosition;
+    [SerializeField] OVRHand leftHand;
+    [SerializeField] OVRHand rightHand;
+   
+
+    [SerializeField] Transform grabObject;
+
+    [SerializeField] bool isGrabbing;
+    [SerializeField] Rigidbody grabObjectRb;
+
+    [SerializeField] Vector3 leftHandOffset;
+    [SerializeField] Vector3 rightHandOffset;
+
+
+    [SerializeField] GameObject blueSign;
+    [SerializeField] GameObject redSign;
+
+
 
     void Start()
     {
+        isGrabbing = false;
+
         isLeftDetected = false;
         isRightDetected = false;
 
-        isLeftGripPressed = false;
-        isRightGripPressed = false;
+        leftHandGrabbing = false;
+        rightHandGrabbing = false;
 
-        isStartSimulation = false;
+        blueSign.SetActive(false);
+        redSign.SetActive(false);
     }
+
+
+
 
     void Update()
     {
-        isLeftGripPressed = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch);
-        isRightGripPressed = OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch);
 
-        if (isLeftDetected && isRightDetected && isLeftGripPressed && isRightGripPressed && !isStartSimulation)
+        leftHandGrabbing = IsHandGrabbing(leftHand);
+        rightHandGrabbing = IsHandGrabbing(rightHand);
+
+        if (leftHandGrabbing && rightHandGrabbing)
         {
-            isStartSimulation = true;
-            Debug.Log("Start Simulation");
-            Debug.Log("Don't release your hold here");
-
-            leftHandPreviousPosition = leftHandTransform.position;
-            rightHandPreviousPosition = rightHandTransform.position;
+            if (!isGrabbing && isLeftDetected && isRightDetected)
+            {
+                StartGrab();
+            }
         }
-        else if (isStartSimulation && (!isLeftGripPressed || !isRightGripPressed))
+        else
         {
-            Debug.Log("End Simulation");
-            isStartSimulation = false;
+            if (isGrabbing)
+            {
+                EndGrab();
+            }
         }
 
-        if (isStartSimulation)
+    }
+
+    private void FixedUpdate()
+    {
+        if (isGrabbing)
         {
-            LockControllerPosition();
+            UpdateGrab();
         }
     }
 
@@ -60,12 +83,12 @@ public class GrabSituation : MonoBehaviour
         if (other.CompareTag("LeftHand"))
         {
             isLeftDetected = true;
-            Debug.Log(other.name + " detected");
+            Debug.Log(other.name + " + left detected");
         }
         if (other.CompareTag("RightHand"))
         {
             isRightDetected = true;
-            Debug.Log(other.name + " detected");
+            Debug.Log(other.name + " + right detected");
         }
     }
 
@@ -75,76 +98,48 @@ public class GrabSituation : MonoBehaviour
         if (other.CompareTag("RightHand")) isRightDetected = false;
     }
 
-    private void DebugGripPressed()
+
+    private bool IsHandGrabbing(OVRHand hand)
     {
-        if (isLeftGripPressed)
-        {
-            Debug.Log("Left GripButton Pressed");
-        }
-        else
-        {
-            Debug.Log("Left GripButton depressed");
-        }
-
-        if (isRightGripPressed)
-        {
-            Debug.Log("Right GripButton Pressed");
-        }
-        else
-        {
-            Debug.Log("Right GripButton depressed");
-        }
-    }
-
-    void LockControllerPosition()
-    {
-        // 그립 버튼이 눌려있을 때 컨트롤러 위치를 고정
-        OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.LTouch); // 진동 추가 (선택사항)
-        OVRInput.SetControllerVibration(0.5f, 0.5f, OVRInput.Controller.RTouch); // 진동 추가 (선택사항)
-
-        // 여기서는 컨트롤러의 Transform을 이전 위치로 설정하여 고정시킵니다.
-        leftHandTransform.position = leftHandPreviousPosition;
-        rightHandTransform.position = rightHandPreviousPosition;
+        return hand.GetFingerIsPinching(OVRHand.HandFinger.Index);
     }
 
 
-    // 손 위치 피드백 기능 테스트 중
-    //[SerializeField] float sensitivity = 0.1f;
-    //[SerializeField] Vector3 leftHandPreviousPosition;
-    //[SerializeField] Vector3 rightHandPreviousPosition;
-    //[SerializeField] bool isMoving;
+    private void StartGrab()
+    {
+        isGrabbing = true;
+        grabObjectRb.isKinematic = true; // 물체를 잡을 때 물리 효과 비활성화
 
-    //void DetectMovement()
-    //{
-    //    if (isStartSimulation)
-    //    {
-    //        Vector3 leftHandCurrentPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
-    //        Vector3 rightHandCurrentPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+        // 손과 물체 사이의 상대적인 위치 저장
+        leftHandOffset = grabObject.position - leftHand.transform.position;
+        rightHandOffset = grabObject.position - rightHand.transform.position;
 
-    //        float[] distances =
-    //        {
-    //            Vector3.Distance(leftHandCurrentPosition, leftHandPreviousPosition),
-    //            Vector3.Distance(rightHandCurrentPosition, rightHandPreviousPosition)
-    //        };
 
-    //        isMoving = false;
+        blueSign.gameObject.SetActive(true);
+        redSign.gameObject.SetActive(false);
+    }
 
-    //        foreach (float distance in distances)
-    //        {
-    //            if (distance > sensitivity)
-    //            {
-    //                isMoving = true;
-    //                break;
-    //            }
-    //        }
+    private void UpdateGrab()
+    {
+        // 손의 위치를 고정
+        // 손의 위치를 고정
+        Vector3 newLeftHandPosition = grabObject.position - leftHandOffset;
+        Vector3 newRightHandPosition = grabObject.position - rightHandOffset;
 
-    //        if (isMoving)
-    //        {
-    //            Debug.Log("Object is moving");
-    //        }
+        // 손의 위치를 설정 (트래킹을 통해 실제 손 위치를 강제로 변경하는 것은 불가능, 시각적 효과 제공)
+        leftHand.transform.position = newLeftHandPosition;
+        rightHand.transform.position = newRightHandPosition;
+    }
 
-    //        leftHandPreviousPosition = leftHandCurrentPosition;
-    //        rightHandPreviousPosition = rightHandCurrentPosition;
-    //    }
-    //}
+
+    private void EndGrab()
+    {
+        isGrabbing = false;
+        grabObjectRb.isKinematic = false; // 물체를 놓을 때 물리 효과 활성화
+
+        blueSign.gameObject.SetActive(false);
+        redSign.gameObject.SetActive(true);
+
+    }
+
 }
