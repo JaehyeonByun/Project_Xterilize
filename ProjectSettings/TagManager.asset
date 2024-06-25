@@ -7,9 +7,13 @@ TagManager:
   - SamplesInfoPanel
   - PlayerContaminationArea
   - Aseptic
-  - Conta
   - LeftHand
   - RightHand
+  - HandConta
+  - BodyConta
+  - Hand
+  - Body
+  - NotConta
   layers:
   - Default
   - TransparentFX
