@@ -29,11 +29,8 @@ public class GrabSituation : MonoBehaviour
 
     [SerializeField] GameObject blueSign;
     [SerializeField] GameObject redSign;
+    [SerializeField] GameObject returnSign;
 
-
-
-    [SerializeField] Transform cameraRig;  // OVR Camera Rig을 여기에 연결
-    [SerializeField] Transform originalPos;
 
     [SerializeField] float holdTime;                 // 유지 시간
     [SerializeField] float gestureTimer; 
@@ -52,6 +49,7 @@ public class GrabSituation : MonoBehaviour
 
         blueSign.SetActive(false);
         redSign.SetActive(false);
+        returnSign.SetActive(false);
 
         holdTime = 5.0f;
         gestureTimer = 0.0f;
@@ -159,8 +157,6 @@ public class GrabSituation : MonoBehaviour
         // 설정된 시간 동안 제스처가 유지되면 위치 초기화
         if (gestureTimer >= holdTime)
         {
-            cameraRig.position = originalPos.position;
-            cameraRig.rotation = originalPos.rotation;
             Debug.Log("Returned to original position after holding gesture.");
             isGrabbing = false;  // 상태 리셋
             gestureTimer = 0f;
@@ -168,6 +164,8 @@ public class GrabSituation : MonoBehaviour
             grabObject.position = originGrabObjectPos;
             grabObject.rotation = originGrabObjectRot;
             Debug.Log("원래 위치로 복귀");
+
+            returnSign.SetActive(true);
         }
     }
 
@@ -180,7 +178,6 @@ public class GrabSituation : MonoBehaviour
 
 
         blueSign.gameObject.SetActive(false);
-        redSign.gameObject.SetActive(true);
 
         grabObject.position = originGrabObjectPos;
         grabObject.rotation = originGrabObjectRot;
