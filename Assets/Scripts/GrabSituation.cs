@@ -17,6 +17,8 @@ public class GrabSituation : MonoBehaviour
    
 
     [SerializeField] Transform grabObject;
+    [SerializeField] Vector3 originGrabObjectPos;
+    [SerializeField] Quaternion originGrabObjectRot;
 
     [SerializeField] bool isGrabbing;
     [SerializeField] Rigidbody grabObjectRb;
@@ -27,6 +29,11 @@ public class GrabSituation : MonoBehaviour
 
     [SerializeField] GameObject blueSign;
     [SerializeField] GameObject redSign;
+    [SerializeField] GameObject returnSign;
+
+
+    [SerializeField] float holdTime;                 // 유지 시간
+    [SerializeField] float gestureTimer; 
 
 
 
@@ -42,6 +49,14 @@ public class GrabSituation : MonoBehaviour
 
         blueSign.SetActive(false);
         redSign.SetActive(false);
+        returnSign.SetActive(false);
+
+        holdTime = 5.0f;
+        gestureTimer = 0.0f;
+
+
+        originGrabObjectPos = grabObject.transform.position;
+        originGrabObjectRot = grabObject.transform.rotation;
     }
 
 
@@ -58,6 +73,7 @@ public class GrabSituation : MonoBehaviour
             if (!isGrabbing && isLeftDetected && isRightDetected)
             {
                 StartGrab();
+
             }
         }
         else
@@ -75,6 +91,10 @@ public class GrabSituation : MonoBehaviour
         if (isGrabbing)
         {
             UpdateGrab();
+        }
+        else
+        {
+            EndGrab();
         }
     }
 
@@ -109,6 +129,7 @@ public class GrabSituation : MonoBehaviour
     {
         isGrabbing = true;
         grabObjectRb.isKinematic = true; // 물체를 잡을 때 물리 효과 비활성화
+        gestureTimer = 0f;  // 타이머 초기화
 
         // 손과 물체 사이의 상대적인 위치 저장
         leftHandOffset = grabObject.position - leftHand.transform.position;
@@ -129,6 +150,23 @@ public class GrabSituation : MonoBehaviour
         // 손의 위치를 설정 (트래킹을 통해 실제 손 위치를 강제로 변경하는 것은 불가능, 시각적 효과 제공)
         leftHand.transform.position = newLeftHandPosition;
         rightHand.transform.position = newRightHandPosition;
+
+
+
+        gestureTimer += Time.deltaTime;
+        // 설정된 시간 동안 제스처가 유지되면 위치 초기화
+        if (gestureTimer >= holdTime)
+        {
+            Debug.Log("Returned to original position after holding gesture.");
+            isGrabbing = false;  // 상태 리셋
+            gestureTimer = 0f;
+
+            grabObject.position = originGrabObjectPos;
+            grabObject.rotation = originGrabObjectRot;
+            Debug.Log("원래 위치로 복귀");
+
+            returnSign.SetActive(true);
+        }
     }
 
 
@@ -136,10 +174,16 @@ public class GrabSituation : MonoBehaviour
     {
         isGrabbing = false;
         grabObjectRb.isKinematic = false; // 물체를 놓을 때 물리 효과 활성화
+        gestureTimer = 0f;
+
 
         blueSign.gameObject.SetActive(false);
-        redSign.gameObject.SetActive(true);
+
+        grabObject.position = originGrabObjectPos;
+        grabObject.rotation = originGrabObjectRot;
 
     }
+
+   
 
 }
