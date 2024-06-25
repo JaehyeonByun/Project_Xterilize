@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState;
     public static List<string> timeLog = new List<string>();
-    public static List<string> ContaminationLog = new List<string>();
+    public static int CountLog = 0;
     public static List<string> WhyLog = new List<string>();
 
     // Update is called once per frame

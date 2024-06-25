@@ -46,10 +46,10 @@ public class Collision : MonoBehaviour
     { 
         GameObject collidedObject = collision.gameObject;
 
-        string currentTime = System.DateTime.Now.ToString("HH��mm��ss��");
+        string currentTime = System.DateTime.Now.ToString("HH:mm:ss");
         Debug.Log("Current Time: " + currentTime);
         GameManager.timeLog.Add(currentTime);
-        GameManager.ContaminationLog.Add("������ ��ü ����");
+        GameManager.CountLog += 1;
         GameManager.WhyLog.Add(this.gameObject.name);
 
         if (collidedObject.CompareTag("NotConta"))
@@ -123,16 +123,7 @@ public class Collision : MonoBehaviour
     {
 
         string csvFilePath = "Assets/CsvData/ContaminationTime.csv";
-        /*if (timeLog == null || timeLog.Count == 0)
-        {
-            Debug.Log("No Contamination");
-            using (StreamWriter sw = new StreamWriter(csvFilePath, false, Encoding.UTF8))
-            {
-                sw.WriteLine("Time,Why");
-                sw.WriteLine(string.Format("No time"));
-            }
-            return;
-        }*/
+
         try
         {
             using (StreamWriter sw = new StreamWriter(csvFilePath, false, Encoding.UTF8))

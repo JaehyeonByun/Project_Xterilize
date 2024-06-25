@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitGame : MonoBehaviour
+public class UIGestureOff : MonoBehaviour
 {
+    public GameObject DefaultUI;
+
     public void OnClick()
     {
-        Application.Quit();
+        DefaultUI.SetActive(true);
     }
 }
