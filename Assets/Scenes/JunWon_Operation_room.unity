@@ -5321,10 +5321,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1457577469}
-    - targetCorrespondingSourceObject: {fileID: 4660586622761362, guid: ab392d4c217158046ad9aaecae54329c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1045452071}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1973212122883712, guid: ab392d4c217158046ad9aaecae54329c,
         type: 3}
@@ -6398,37 +6394,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overlayMaterial: {fileID: 2100000, guid: c44478fbca36244a1b1701a6f0591fa1, type: 2}
---- !u!1 &1017564936
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1017564937}
-  m_Layer: 0
-  m_Name: originPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1017564937
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1017564936}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5330002, y: -1.0116, z: -1.1230001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1283841483}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1021244344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5419937293532398301, guid: 424c2298facd2bf419beffd69e8cc855,
@@ -6552,37 +6517,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044375947}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1045452070
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1045452071}
-  m_Layer: 0
-  m_Name: originPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1045452071
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045452070}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 841786556}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1047179360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3282029263655771826, guid: 885ecae56b16f13428a67de5ae482a72,
@@ -7291,7 +7225,8 @@ MonoBehaviour:
   leftHand: {fileID: 100143508}
   rightHand: {fileID: 768762218}
   grabObject: {fileID: 1283841483}
-  originGrabObjectPos: {fileID: 1017564937}
+  originGrabObjectPos: {x: 0, y: 0, z: 0}
+  originGrabObjectRot: {x: 0, y: 0, z: 0, w: 0}
   isGrabbing: 0
   grabObjectRb: {fileID: 1283841485}
   leftHandOffset: {x: 0, y: 0, z: 0}
@@ -8788,10 +8723,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1044375948}
-    - targetCorrespondingSourceObject: {fileID: 4660586622761362, guid: ab392d4c217158046ad9aaecae54329c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1017564937}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1973212122883712, guid: ab392d4c217158046ad9aaecae54329c,
         type: 3}
@@ -13566,7 +13497,8 @@ MonoBehaviour:
   leftHand: {fileID: 100143508}
   rightHand: {fileID: 768762218}
   grabObject: {fileID: 841786556}
-  originGrabObjectPos: {fileID: 1045452071}
+  originGrabObjectPos: {x: 0, y: 0, z: 0}
+  originGrabObjectRot: {x: 0, y: 0, z: 0, w: 0}
   isGrabbing: 0
   grabObjectRb: {fileID: 841786558}
   leftHandOffset: {x: 0, y: 0, z: 0}

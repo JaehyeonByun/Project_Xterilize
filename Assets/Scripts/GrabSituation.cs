@@ -166,7 +166,8 @@ public class GrabSituation : MonoBehaviour
             gestureTimer = 0f;
 
             grabObject.position = originGrabObjectPos;
-            grabObject.rotation = originGrabObjectRot; 
+            grabObject.rotation = originGrabObjectRot;
+            Debug.Log("원래 위치로 복귀");
         }
     }
 
