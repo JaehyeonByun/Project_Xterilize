@@ -12,38 +12,11 @@ public class Collision : MonoBehaviour
 {
 
     public Material Contamination;
-    public GameObject arrow_down; 
+    public Material HitEffect;
     private List<GameObject> contaminatedObjects = new List<GameObject>();
 
-    private Canvas hitEffectCanvas;
-    private Image hitEffectImage;
-
-    private void Start()
-    {
-        // load arrow
-        arrow_down = Resources.Load<GameObject>("Prefabs/Arrow_down");
-
-        // hit effect Canvas
-        GameObject canvasGameObject = new GameObject("HitEffectCanvas");
-        hitEffectCanvas = canvasGameObject.AddComponent<Canvas>();
-        hitEffectCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        hitEffectCanvas.sortingOrder = 100;
-
-        // hit effect Image
-        GameObject imageGameObject = new GameObject("HitEffectImage");
-        imageGameObject.transform.SetParent(canvasGameObject.transform);
-        hitEffectImage = imageGameObject.AddComponent<Image>();
-        hitEffectImage.color = new Color(1, 0, 0, 0.3f); 
-        hitEffectImage.rectTransform.anchorMin = new Vector2(0, 0);
-        hitEffectImage.rectTransform.anchorMax = new Vector2(1, 1);
-        hitEffectImage.rectTransform.offsetMin = Vector2.zero;
-        hitEffectImage.rectTransform.offsetMax = Vector2.zero;
-
-        hitEffectCanvas.enabled = false;
-    }
-
     private void OnCollisionEnter(UnityEngine.Collision collision)
-    { 
+    {
         GameObject collidedObject = collision.gameObject;
 
         string currentTime = System.DateTime.Now.ToString("HH:mm:ss");
@@ -52,57 +25,68 @@ public class Collision : MonoBehaviour
         GameManager.CountLog += 1;
         GameManager.WhyLog.Add(this.gameObject.name);
 
-        if (collidedObject.CompareTag("NotConta"))
+
+        if (this.gameObject.CompareTag("LeftHand") || this.gameObject.CompareTag("RightHand"))
         {
-            //Debug.Log("Collision With NotConta Object!");
-        }
-        else
-        {
-            if (this.gameObject.CompareTag("Hand"))
+            Debug.Log("Collision detected with hand.");
+
+            if (collidedObject.CompareTag("NotConta"))
             {
-                collidedObject.tag = "HandConta";
-
-                AddOverlay addOverlay = collidedObject.AddComponent<AddOverlay>();
-                addOverlay.overlayMaterial = Contamination;
-                addOverlay.ApplyOverlay();
-
-                contaminatedObjects.Add(collidedObject);
-
-                StartCoroutine(BlinkColor(collidedObject, Contamination, 1f, 3));
+                Debug.Log("Collision with NotConta object.");
             }
-
-            else if (this.gameObject.CompareTag("Body"))
+            else
             {
-                collidedObject.tag = "BodyConta";
-
+                Debug.Log("Collision detected with Hand.");
                 contaminatedObjects.Add(collidedObject);
-
-                StartCoroutine(ShowHitEffect(1f));
+                StartCoroutine(BlinkOverlay(collidedObject, Contamination, 1f, 3));
             }
         }
+        else if (this.gameObject.CompareTag("Body"))
+        {
+
+            if (collidedObject.CompareTag("NotConta"))
+            {
+                Debug.Log("Collision with NotConta object.");
+            }
+            else
+            {
+                Debug.Log("Collision detected with odyHand.");
+                contaminatedObjects.Add(collidedObject);
+                StartCoroutine(BlinkOverlay(collidedObject, HitEffect, 1f, 3));
+            }
+        }
+
     }
 
-    private IEnumerator BlinkColor(GameObject obj, Material contaminationMaterial, float blinkDuration, int blinkCount)
+    private IEnumerator BlinkOverlay(GameObject obj, Material overlayMaterial, float blinkDuration, int blinkCount)
     {
         Renderer renderer = obj.GetComponent<Renderer>();
-        Material originalMaterial = renderer.material;
+
+        if (renderer == null)
+        {
+            yield break;
+        }
+
+        Material[] originalMaterials = renderer.materials;
 
         for (int i = 0; i < blinkCount; i++)
         {
-            renderer.material = contaminationMaterial;
+            ApplyOverlay(renderer, overlayMaterial);
             yield return new WaitForSeconds(blinkDuration);
-            renderer.material = originalMaterial;
+            renderer.materials = originalMaterials;
             yield return new WaitForSeconds(blinkDuration);
         }
+
+        ApplyOverlay(renderer, overlayMaterial);  // 마지막으로 오버레이를 적용한 상태로 유지
     }
 
-    private IEnumerator ShowHitEffect(float duration)
+    private void ApplyOverlay(Renderer renderer, Material overlayMaterial)
     {
-        hitEffectCanvas.enabled = true;
-
-        yield return new WaitForSeconds(duration);
-
-        hitEffectCanvas.enabled = false;
+        Material[] originalMaterials = renderer.materials;
+        Material[] newMaterials = new Material[originalMaterials.Length + 1];
+        originalMaterials.CopyTo(newMaterials, 0);
+        newMaterials[originalMaterials.Length] = overlayMaterial;
+        renderer.materials = newMaterials;
     }
 
     void Update()
@@ -141,16 +125,6 @@ public class Collision : MonoBehaviour
         catch (Exception ex)
         {
             Debug.Log("An error occurred while writing to the CSV file: " + ex.Message);
-        }
-    }
-
-    // If press the feedback button, 
-    void ShowArrowsOnContaminatedObjects()
-    {
-        foreach (GameObject obj in contaminatedObjects)
-        {
-            // Attach arrow to objects of Contalist
-            Instantiate(arrow_down, obj.transform.position + Vector3.up * 2, Quaternion.identity);
         }
     }
 }
