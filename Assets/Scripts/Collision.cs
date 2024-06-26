@@ -36,7 +36,7 @@ public class Collision : MonoBehaviour
             }
             else
             {
-                Debug.Log("Collision detected with Hand.");
+                Debug.Log("Collision detected with " + this.gameObject.name);
                 contaminatedObjects.Add(collidedObject);
                 StartCoroutine(BlinkOverlay(collidedObject, Contamination, 1f, 3));
             }
@@ -50,7 +50,7 @@ public class Collision : MonoBehaviour
             }
             else
             {
-                Debug.Log("Collision detected with odyHand.");
+                Debug.Log("Collision detected with " + this.gameObject.name);
                 contaminatedObjects.Add(collidedObject);
                 StartCoroutine(BlinkOverlay(collidedObject, HitEffect, 1f, 3));
             }

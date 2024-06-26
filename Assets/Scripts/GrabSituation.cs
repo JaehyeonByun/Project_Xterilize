@@ -32,7 +32,7 @@ public class GrabSituation : MonoBehaviour
     [SerializeField] GameObject returnSign;
 
 
-    [SerializeField] float holdTime;                 // À¯Áö ½Ã°£
+    [SerializeField] float holdTime;                 // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
     [SerializeField] float gestureTimer; 
 
 
@@ -128,10 +128,10 @@ public class GrabSituation : MonoBehaviour
     private void StartGrab()
     {
         isGrabbing = true;
-        grabObjectRb.isKinematic = true; // ¹°Ã¼¸¦ ÀâÀ» ¶§ ¹°¸® È¿°ú ºñÈ°¼ºÈ­
-        gestureTimer = 0f;  // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+        grabObjectRb.isKinematic = true; // ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
+        gestureTimer = 0f;  // Å¸ï¿½Ì¸ï¿½ ï¿½Ê±ï¿½È­
 
-        // ¼Õ°ú ¹°Ã¼ »çÀÌÀÇ »ó´ëÀûÀÎ À§Ä¡ ÀúÀå
+        // ï¿½Õ°ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         leftHandOffset = grabObject.position - leftHand.transform.position;
         rightHandOffset = grabObject.position - rightHand.transform.position;
 
@@ -142,28 +142,28 @@ public class GrabSituation : MonoBehaviour
 
     private void UpdateGrab()
     {
-        // ¼ÕÀÇ À§Ä¡¸¦ °íÁ¤
-        // ¼ÕÀÇ À§Ä¡¸¦ °íÁ¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Vector3 newLeftHandPosition = grabObject.position - leftHandOffset;
         Vector3 newRightHandPosition = grabObject.position - rightHandOffset;
 
-        // ¼ÕÀÇ À§Ä¡¸¦ ¼³Á¤ (Æ®·¡Å·À» ÅëÇØ ½ÇÁ¦ ¼Õ À§Ä¡¸¦ °­Á¦·Î º¯°æÇÏ´Â °ÍÀº ºÒ°¡´É, ½Ã°¢Àû È¿°ú Á¦°ø)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Æ®ï¿½ï¿½Å·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½, ï¿½Ã°ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         leftHand.transform.position = newLeftHandPosition;
         rightHand.transform.position = newRightHandPosition;
 
 
 
         gestureTimer += Time.deltaTime;
-        // ¼³Á¤µÈ ½Ã°£ µ¿¾È Á¦½ºÃ³°¡ À¯ÁöµÇ¸é À§Ä¡ ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½ï¿½Ä¡ ï¿½Ê±ï¿½È­
         if (gestureTimer >= holdTime)
         {
             Debug.Log("Returned to original position after holding gesture.");
-            isGrabbing = false;  // »óÅÂ ¸®¼Â
+            isGrabbing = false;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             gestureTimer = 0f;
 
             grabObject.position = originGrabObjectPos;
             grabObject.rotation = originGrabObjectRot;
-            Debug.Log("¿ø·¡ À§Ä¡·Î º¹±Í");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
             returnSign.SetActive(true);
         }
@@ -173,7 +173,7 @@ public class GrabSituation : MonoBehaviour
     private void EndGrab()
     {
         isGrabbing = false;
-        grabObjectRb.isKinematic = false; // ¹°Ã¼¸¦ ³õÀ» ¶§ ¹°¸® È¿°ú È°¼ºÈ­
+        grabObjectRb.isKinematic = false; // ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ È°ï¿½ï¿½È­
         gestureTimer = 0f;
 
 

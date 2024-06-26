@@ -12,7 +12,7 @@ public class AreaCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Conta")
         {
             Debug.Log("Contamination Detected! " + collider.gameObject.name);
         }
