@@ -27,14 +27,9 @@ public class Collision : MonoBehaviour
 
         if (this.gameObject.CompareTag("LeftHand") || this.gameObject.CompareTag("RightHand"))
         {
-            Debug.Log("Collision detected with hand.");
-
-            if (collidedObject.CompareTag("NotConta"))
+            if (collidedObject.CompareTag("Conta"))
             {
-                Debug.Log("Collision with NotConta object.");
-            }
-            else
-            {
+                Debug.Log("Collision detected with hand.");
                 Debug.Log("Collision detected with " + this.gameObject.name);
                 contaminatedObjects.Add(collidedObject);
                 StartBlinkCoroutine(collidedObject, Contamination);
@@ -42,12 +37,9 @@ public class Collision : MonoBehaviour
         }
         else if (this.gameObject.CompareTag("Body"))
         {
-            if (collidedObject.CompareTag("NotConta"))
+            if (collidedObject.CompareTag("Conta"))
             {
                 Debug.Log("Collision with NotConta object.");
-            }
-            else
-            {
                 Debug.Log("Collision detected with " + this.gameObject.name);
                 contaminatedObjects.Add(collidedObject);
                 StartBlinkCoroutine(collidedObject, HitEffect);
