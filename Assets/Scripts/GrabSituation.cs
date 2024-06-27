@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GrabSituation : MonoBehaviour
 {
+    public AudioSource BackAudio;
+    public GameObject OriginPos;
     [SerializeField] bool isLeftDetected;
     [SerializeField] bool isRightDetected;
 
@@ -158,6 +160,10 @@ public class GrabSituation : MonoBehaviour
         if (gestureTimer >= holdTime)
         {
             Debug.Log("Returned to original position after holding gesture.");
+            
+            BackAudio.Play();
+            OriginPos.SetActive(true);
+
             isGrabbing = false;  // ���� ����
             gestureTimer = 0f;
 
