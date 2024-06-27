@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class DetectionReturn : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
+    public GameObject EndUI;
+    public GameObject OriginPos;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") Debug.Log("정상 복귀 완료");
+        if (other.tag == "LeftHand" || other.tag == "RightHand") {
 
-        if (other.tag == "LeftHand" ||  other.tag == "RightHand") Debug.Log("정상 복귀 완료"); 
+            EndUI.SetActive(true);
+            OriginPos.SetActive(false);
+        }; 
     }
 }
