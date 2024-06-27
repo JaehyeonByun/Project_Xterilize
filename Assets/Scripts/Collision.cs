@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-using static Unity.Burst.Intrinsics.X86.Avx;
 using System.Text;
 
 public class Collision : MonoBehaviour
 {
-
     public Material Contamination;
     public Material HitEffect;
     private List<GameObject> contaminatedObjects = new List<GameObject>();
+    private Dictionary<GameObject, Coroutine> runningCoroutines = new Dictionary<GameObject, Coroutine>();
+    private HashSet<GameObject> runningBlinkEffects = new HashSet<GameObject>();
 
     private void OnCollisionEnter(UnityEngine.Collision collision)
     {
@@ -24,7 +24,6 @@ public class Collision : MonoBehaviour
         GameManager.timeLog.Add(currentTime);
         GameManager.CountLog += 1;
         GameManager.WhyLog.Add(this.gameObject.name);
-
 
         if (this.gameObject.CompareTag("LeftHand") || this.gameObject.CompareTag("RightHand"))
         {
@@ -38,12 +37,11 @@ public class Collision : MonoBehaviour
             {
                 Debug.Log("Collision detected with " + this.gameObject.name);
                 contaminatedObjects.Add(collidedObject);
-                StartCoroutine(BlinkOverlay(collidedObject, Contamination, 1f, 3));
+                StartBlinkCoroutine(collidedObject, Contamination);
             }
         }
         else if (this.gameObject.CompareTag("Body"))
         {
-
             if (collidedObject.CompareTag("NotConta"))
             {
                 Debug.Log("Collision with NotConta object.");
@@ -52,10 +50,22 @@ public class Collision : MonoBehaviour
             {
                 Debug.Log("Collision detected with " + this.gameObject.name);
                 contaminatedObjects.Add(collidedObject);
-                StartCoroutine(BlinkOverlay(collidedObject, HitEffect, 1f, 3));
+                StartBlinkCoroutine(collidedObject, HitEffect);
             }
         }
+    }
 
+    private void StartBlinkCoroutine(GameObject obj, Material overlayMaterial)
+    {
+        if (runningBlinkEffects.Contains(obj))
+        {
+            Debug.Log("Coroutine is already running for this object.");
+            return;
+        }
+
+        Coroutine coroutine = StartCoroutine(BlinkOverlay(obj, overlayMaterial, 1f, 3));
+        runningCoroutines[obj] = coroutine;
+        runningBlinkEffects.Add(obj);
     }
 
     private IEnumerator BlinkOverlay(GameObject obj, Material overlayMaterial, float blinkDuration, int blinkCount)
@@ -77,7 +87,9 @@ public class Collision : MonoBehaviour
             yield return new WaitForSeconds(blinkDuration);
         }
 
-        ApplyOverlay(renderer, overlayMaterial);  // 마지막으로 오버레이를 적용한 상태로 유지
+        renderer.materials = originalMaterials; // Ensure the object returns to its original material
+        runningBlinkEffects.Remove(obj); // Remove from running blink effects set
+        runningCoroutines.Remove(obj); // Remove from running coroutines dictionary
     }
 
     private void ApplyOverlay(Renderer renderer, Material overlayMaterial)
@@ -105,7 +117,6 @@ public class Collision : MonoBehaviour
 
     void MakeCsv()
     {
-
         string csvFilePath = "Assets/CsvData/ContaminationTime.csv";
 
         try
@@ -128,4 +139,3 @@ public class Collision : MonoBehaviour
         }
     }
 }
-
