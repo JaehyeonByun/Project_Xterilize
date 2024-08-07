@@ -131,7 +131,7 @@ public class GrabSituation : MonoBehaviour
     {
         isGrabbing = true;
         grabObjectRb.isKinematic = true; // ��ü�� ���� �� ���� ȿ�� ��Ȱ��ȭ
-        gestureTimer = 0f;  // Ÿ�̸� �ʱ�ȭ
+        //gestureTimer = 0f;  // Ÿ�̸� �ʱ�ȭ Temp..
 
         // �հ� ��ü ������ ������� ��ġ ����
         leftHandOffset = grabObject.position - leftHand.transform.position;
@@ -180,13 +180,15 @@ public class GrabSituation : MonoBehaviour
     {
         isGrabbing = false;
         grabObjectRb.isKinematic = false; // ��ü�� ���� �� ���� ȿ�� Ȱ��ȭ
-        gestureTimer = 0f;
+        //gestureTimer = 0f; Temp...
 
 
         blueSign.gameObject.SetActive(false);
 
         grabObject.position = originGrabObjectPos;
         grabObject.rotation = originGrabObjectRot;
+
+        Debug.Log("GestureTimer: "+gestureTimer);
 
     }
 
